@@ -1,0 +1,23 @@
+
+server:
+  port: 12342
+  servlet:
+    context-path: /springboot2
+#  数据库配置
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://bt6s.onbed.cn:3366/neuedu?useUnicode=true&useSSL=true&characterEncoding=utf8
+    username: root
+    password: yourpassword
+  output:
+    ansi:
+      enabled: always
+logging:
+  level:
+    org.springframework: INFO
+mybatis-plus:
+  mapper-locations: classpath:h/ssm/mapper/*.xml
+  type-aliases-package: h.ssm.entity
+  configuration:
+    log-impl: org.apache.ibatis.logging.commons.JakartaCommonsLoggingImpl
