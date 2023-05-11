@@ -15,3 +15,4 @@ public class BaseEntity {
     private LocalDateTime updated;
     private Integer statu;
 }
+

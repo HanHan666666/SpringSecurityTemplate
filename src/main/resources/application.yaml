@@ -13,6 +13,10 @@ spring:
   output:
     ansi:
       enabled: always
+  security:
+    user:
+      name: admin
+      password: 123
 logging:
   level:
     org.springframework: INFO

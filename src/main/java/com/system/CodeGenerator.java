@@ -1,4 +1,5 @@
 package com.system;
+
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
@@ -11,10 +12,7 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 
 
-import java.util.ArrayList;
-
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class CodeGenerator {
     /**
@@ -46,11 +44,11 @@ public class CodeGenerator {
         gc.setOutputDir(projectPath + "/src/main/java");
         gc.setAuthor("吴晗");
         gc.setOpen(false);  //生成是否打开资源管理器
-        gc.setFileOverride(false); //重新生成是否覆盖
+        gc.setFileOverride(true); //重新生成是否覆盖
         // gc.setSwagger2(true); 实体属性 Swagger2 注解
         gc.setServiceName("%sService"); //去掉Service接口的首字母I
         gc.setIdType(IdType.AUTO); //主键策略，AUTO数据库自增、UUID
-        gc.setSwagger2(false) ;//开启Swagger2模式
+        gc.setSwagger2(false);//开启Swagger2模式
         mpg.setGlobalConfig(gc);
 
         // 数据源配置
@@ -111,6 +109,10 @@ public class CodeGenerator {
             }
         });
         */
+        Map<String, Object> map = new HashMap<>();
+        map.put("repositoryAnnotation", true); // 设置为true，表示生成@Repository注解
+        cfg.setMap(map);
+        mpg.setCfg(cfg);
         cfg.setFileOutConfigList(focList);
         mpg.setCfg(cfg);
 

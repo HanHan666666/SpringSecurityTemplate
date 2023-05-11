@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
 @SpringBootTest
 class AdminSystemVueApplicationTests {
 
@@ -42,7 +44,14 @@ class AdminSystemVueApplicationTests {
     public void testQueryWrapper(){
         QueryWrapper qw = new QueryWrapper();
 
-//        qw.eq();
+        qw.eq("id",9);
+        List list = userMapper.selectList(qw);
+        System.out.println("list = " + list);
+    }
+
+    @Test
+    public void  testDelete(){
+        System.out.println("userMapper.deleteById(37) = " + userMapper.deleteById(37L));
     }
 
     @Test

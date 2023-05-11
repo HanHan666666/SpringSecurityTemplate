@@ -6,8 +6,7 @@ import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.system.common.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableField;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 /**
  * <p>
@@ -18,6 +17,8 @@ import lombok.EqualsAndHashCode;
  * @since 2023-05-10
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @TableName("sys_user")
 public class User extends BaseEntity {
@@ -41,6 +42,4 @@ public class User extends BaseEntity {
 
     @TableField("last_login")
     private LocalDateTime lastLogin;
-
-
 }
