@@ -1,16 +1,16 @@
 package com.system.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
+
 import java.time.LocalDateTime;
-import com.baomidou.mybatisplus.annotation.TableId;
+
 import com.system.common.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.*;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author 吴晗

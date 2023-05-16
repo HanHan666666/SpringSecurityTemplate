@@ -1,8 +1,7 @@
-
 server:
   port: 12342
-  servlet:
-    context-path: /springboot2
+#  servlet:
+#    context-path: /springboot2
 #  数据库配置
 spring:
   datasource:
@@ -17,6 +16,12 @@ spring:
     user:
       name: admin
       password: 123
+  redis:
+    port: 3379
+    host: 120.48.8.219
+    password: '000415'
+    database: 1
+
 logging:
   level:
     org.springframework: INFO
@@ -25,3 +30,8 @@ mybatis-plus:
   type-aliases-package: h.ssm.entity
   configuration:
     log-impl: org.apache.ibatis.logging.commons.JakartaCommonsLoggingImpl
+token:
+  jwt:
+    secret: YWFhYWFhYWFhYQ==
+    expire: 604800
+    header: token

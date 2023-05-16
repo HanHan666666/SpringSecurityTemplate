@@ -6,6 +6,7 @@ import com.system.mapper.UserMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
 
@@ -19,6 +20,9 @@ class AdminSystemVueApplicationTests {
         userMapper.selectList(null).forEach(System.out::println);
 
     }
+
+
+
     @Test
     public void testSelectById(){
        User user= userMapper.selectById(9);

@@ -12,18 +12,18 @@ public class GlobalException {
 //    AccessDeniedException accessDeniedException;
     @ExceptionHandler(value = AccessDeniedException.class)
     public Result handler(AccessDeniedException e){
-        log.info("spring security 没有权限---{}",e.getMessage());
-        return Result.fail("权限不足");
+        log.info("spring security permission denied---{}",e.getMessage());
+        return Result.fail("permission denied");
     }
     @ExceptionHandler(value = IllegalArgumentException.class)
     public Result handler(IllegalArgumentException e){
-        log.info("spring security 参数错误---{}",e.getMessage());
-        return Result.fail("接口参数异常");
+        log.info("spring security Argument error---{}",e.getMessage());
+        return Result.fail("Argument error");
     }
 
     @ExceptionHandler(value = RuntimeException.class)
     public Result handler(RuntimeException e){
-        log.info("运行时异常---{}",e.getMessage());
-        return Result.fail("运行时错误"+e.getMessage());
+        log.info("RuntimeException---{}",e.getMessage());
+        return Result.fail("RuntimeException"+e.getMessage());
     }
 }
