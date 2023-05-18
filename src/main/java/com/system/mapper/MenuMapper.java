@@ -3,9 +3,12 @@ package com.system.mapper;
 import com.system.entity.Menu;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
 /**
  * <p>
- *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author 吴晗
@@ -13,6 +16,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface MenuMapper extends BaseMapper<Menu> {
-
+    List<Long> getMenuIdsByUserId(Long userId);
 }
 

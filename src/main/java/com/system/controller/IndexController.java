@@ -9,16 +9,15 @@ import com.system.common.lang.Const;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+
+import org.springframework.web.bind.annotation.*;
 import sun.misc.BASE64Encoder;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+
 import java.util.UUID;
 
 @Slf4j
@@ -55,15 +54,16 @@ public class IndexController extends BaseController {
         //在服务器端输出日志，产生验证码以及存储redis key随机码是多少
         //Output the log on the server side, what is the captcha and the random code of the storage redis key
         log.info("验证码--{}--{}", key, code);
-//        RedisUtil redisUtil = new RedisUtil();
-        redisUtil.hset(Const.CAPTCHA_KEY,key,code,600000000);
+        //RedisUtil redisUtil = new RedisUtil();
+        redisUtil.hset(Const.CAPTCHA_KEY, key, code, 600000000);
         return Result.success(
                 MapUtil.builder().put("key", key).put("captchaImg", base64Image).build());
+//        return ResponseEntity.ok(MapUtil.builder().put("key", key).put("captchaImg", base64Image));
         //return Result.success(MakeMistake());
     }
 
     private String MakeMistake() {
         throw new NullPointerException("传递的数组的值是null");
-//        return "mistake";
+        //return "mistake";
     }
 }

@@ -18,12 +18,12 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         ServletOutputStream out = response.getOutputStream();
+        response.setContentType("application/json;charset=utf-8");
+
         Result result = Result.fail("登录验证失败");
         out.write(JSONUtil.toJsonStr(result).getBytes(StandardCharsets.UTF_8));
         out.flush();
         out.close();
 
     }
-
-
 }

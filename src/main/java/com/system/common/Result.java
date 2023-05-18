@@ -2,6 +2,8 @@ package com.system.common;
 
 import lombok.Data;
 
+
+
 @Data
 public class Result {
     private int code;
@@ -32,6 +34,7 @@ public class Result {
 
 //    返回状态操作失败，不需要返回数据
     public static Result fail(String message){
+
         return fail(400, message, null);
     }
 }

@@ -1,9 +1,6 @@
 package com.system.config;
 
-import com.system.secutity.CaptchaFilter;
-import com.system.secutity.LoginFailureHandler;
-import com.system.secutity.LoginSuccessHandler;
-import com.system.secutity.UserDetailsServiceImpl;
+import com.system.secutity.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -15,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
@@ -25,11 +23,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     LoginFailureHandler loginFailureHandler;
     @Autowired
     LoginSuccessHandler loginSuccessHandler;
-    //    校验验证码过滤器
+    //校验验证码过滤器
     @Autowired
     CaptchaFilter captchaFilter;
+    // 校验用户信息
     @Autowired
     UserDetailsServiceImpl userDetailsService;
+    //jwt验证失败的处理器
+    @Autowired
+    AuthenticationEntryPoint authenticcationEntryPoint;
+    @Autowired
+    JwtLogoutSuccessHandler jwtLogoutSuccessHandler;
+    // 登出成功
+    @Autowired
+    JwtAccessDeniedHandler jwtAccessDeniedHandler;
+
+    // 创建JWT过滤器对象
+    @Bean
+    JWTAuthenticationFilter jwtAuthenticationFilter() throws Exception {
+        return new JWTAuthenticationFilter(authenticationManager());
+    }
 
     @Bean
     public BCryptPasswordEncoder cryptPasswordEncoder() {
@@ -54,9 +67,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
-                .formLogin()
-                .failureHandler(loginFailureHandler)
-                .successHandler(loginSuccessHandler)
+                .formLogin() // 表单登录,
+                .failureHandler(loginFailureHandler)// 登陆失败
+                .successHandler(loginSuccessHandler)//登陆成功
+                .and()
+                .logout()
+                .logoutSuccessHandler(jwtLogoutSuccessHandler) // 登出成功
+
                 .and()
                 .authorizeRequests()
                 .antMatchers(WHITE_LIST).permitAll()
@@ -68,6 +85,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // IF_REQUIRED Spring Security只会在需要时创建一个HttpSession
                 // NEVER Spring Security不会创建HttpSession，但如果它已经存在，将可以使用HttpSession
                 .and()
+                .exceptionHandling()// 异常处理器，一旦产生异常，就会执行下面的方法
+                .accessDeniedHandler(jwtAccessDeniedHandler)
+                .authenticationEntryPoint(authenticcationEntryPoint)
+                .and()
+                .addFilter(jwtAuthenticationFilter()) //配置jwt验证过滤器
+                // 在springSecurity验证用户名密码过滤器执行之前，执行我们自定义的captchaFilter验证码过滤器
                 .addFilterBefore(captchaFilter, UsernamePasswordAuthenticationFilter.class);
     }
 }

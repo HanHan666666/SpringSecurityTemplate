@@ -21,15 +21,16 @@ spring:
     host: 120.48.8.219
     password: '000415'
     database: 1
-
+  main:
+    allow-circular-references: true
 logging:
   level:
     org.springframework: INFO
 mybatis-plus:
-  mapper-locations: classpath:h/ssm/mapper/*.xml
-  type-aliases-package: h.ssm.entity
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.system.entity
   configuration:
-    log-impl: org.apache.ibatis.logging.commons.JakartaCommonsLoggingImpl
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 token:
   jwt:
     secret: YWFhYWFhYWFhYQ==
