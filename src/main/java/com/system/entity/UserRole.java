@@ -17,9 +17,9 @@ import lombok.EqualsAndHashCode;
  * @since 2023-05-10
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode
 @TableName("sys_user_role")
-public class UserRole extends BaseEntity {
+public class UserRole {
 
     private static final long serialVersionUID = 1L;
 
@@ -28,6 +28,4 @@ public class UserRole extends BaseEntity {
 
     @TableField("role_id")
     private Long roleId;
-
-
 }

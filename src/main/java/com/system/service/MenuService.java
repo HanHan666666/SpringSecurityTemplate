@@ -15,6 +15,6 @@ import java.util.List;
  * @since 2023-05-10
  */
 public interface MenuService extends IService<Menu> {
-    public List<MenuDto> getCurrentUserNav(String username);
-
+    List<MenuDto> getCurrentUserNav(String username);
+    List<Menu> tree();
 }

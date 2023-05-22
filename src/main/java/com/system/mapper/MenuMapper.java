@@ -16,6 +16,7 @@ import java.util.List;
  */
 @Repository
 public interface MenuMapper extends BaseMapper<Menu> {
-    List<Long> getMenuIdsByUserId(Long userId);
-}
+//    List<Long> getMenuIdsByUserId(Long userId);
 
+    List<Long> getNavMenuIds(long id);
+}

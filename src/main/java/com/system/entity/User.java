@@ -3,6 +3,7 @@ package com.system.entity;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import com.system.common.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -42,4 +43,6 @@ public class User extends BaseEntity {
 
     @TableField("last_login")
     private LocalDateTime lastLogin;
+    @TableField(exist = false)
+    private List<Role> roles;
 }

@@ -17,13 +17,14 @@ public class GlobalException {
     }
     @ExceptionHandler(value = IllegalArgumentException.class)
     public Result handler(IllegalArgumentException e){
-        log.info("spring security Argument error---{}",e.getMessage());
+        log.error(e.toString());
+        log.error("spring security Argument error---{}",e.getMessage());
         return Result.fail("Argument error");
     }
 
     @ExceptionHandler(value = RuntimeException.class)
     public Result handler(RuntimeException e){
-        log.info("RuntimeException---{}",e.getMessage());
+        log.error("RuntimeException---{}",e.getMessage());
         return Result.fail("RuntimeException"+e.getMessage());
     }
 }

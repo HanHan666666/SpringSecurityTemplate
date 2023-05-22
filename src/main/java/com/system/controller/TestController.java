@@ -35,14 +35,14 @@ public class TestController extends BaseController {
         return true;
     }
 
-    @PostMapping("/user/add")
-    public int addUser() {
-        User user = new User("hhhhh", "kkkkkk", "ssss","email","k", LocalDateTime.now());
-        user.setStatu(1);
-        user.setCreated(LocalDateTime.now());
-        user.setUpdated(LocalDateTime.now());
-        return userMapper.insert(user);
-    }
+    // @PostMapping("/user/add")
+    // public int addUser() {
+    //     User user = new User("hhhhh", "kkkkkk", "ssss","email","k", LocalDateTime.now());
+    //     user.setStatu(1);
+    //     user.setCreated(LocalDateTime.now());
+    //     user.setUpdated(LocalDateTime.now());
+    //     return userMapper.insert(user);
+    // }
     @DeleteMapping("/user/delete/{id}")
     public int deleteUser(@PathVariable("id") int id) {
         System.out.println("id = " + id);

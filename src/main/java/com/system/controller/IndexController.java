@@ -6,7 +6,6 @@ import com.system.common.BaseController;
 import com.system.common.Result;
 import com.system.common.lang.Const;
 
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -59,11 +58,16 @@ public class IndexController extends BaseController {
         return Result.success(
                 MapUtil.builder().put("key", key).put("captchaImg", base64Image).build());
 //        return ResponseEntity.ok(MapUtil.builder().put("key", key).put("captchaImg", base64Image));
-        //return Result.success(MakeMistake());
+
     }
 
-    private String MakeMistake() {
-        throw new NullPointerException("传递的数组的值是null");
-        //return "mistake";
-    }
+//    @RequestMapping("/menu/nav")
+//    public Result nav(){
+//        return Result.success(MapUtil.builder()
+//                .put("title","首页")
+//                .put("href","/index/welcome")
+//                .put("icon","fa fa-home")
+//                .build());
+//    }
+
 }

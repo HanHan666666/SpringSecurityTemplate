@@ -139,7 +139,7 @@ public class CodeGenerator {
         strategy.setSuperControllerClass("com.system.common.BaseController");
         // 写于父类中的公共字段
         strategy.setSuperEntityColumns("id", "created", "updated", "statu");
-        String[] tables = {"sys_user", "sys_menu", "sys_role", "sys_user_role"};
+        String[] tables = {"sys_role_menu"};
 //        strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));
         strategy.setInclude(tables);
         strategy.setEntityTableFieldAnnotationEnable(true); // 为实体类的类上加@TableName, 所有字段上加注解

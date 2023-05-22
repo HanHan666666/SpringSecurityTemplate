@@ -18,10 +18,16 @@ import java.io.IOException;
 @Component
 public class CaptchaFilter extends OncePerRequestFilter {
     private final String loginURL = "/login";
-    @Autowired
+    final
     RedisUtil redisUtil;
-    @Autowired
+    final
     LoginFailureHandler loginFailureHandler;
+
+    public CaptchaFilter(LoginFailureHandler loginFailureHandler, RedisUtil redisUtil) {
+        this.loginFailureHandler = loginFailureHandler;
+        this.redisUtil = redisUtil;
+    }
+
     private void validate(HttpServletRequest request) throws CaptchaException{
         String code = request.getParameter("code");
         String key = request.getParameter("key");

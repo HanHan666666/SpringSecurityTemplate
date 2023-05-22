@@ -8,9 +8,12 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author 吴晗
@@ -65,5 +68,7 @@ public class Menu extends BaseEntity {
     @TableField("orderNum")
     private Integer ordernum;
 
+    @TableField(exist = false)
+    List<Menu> children = new ArrayList<>();
 
 }

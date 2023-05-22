@@ -8,35 +8,26 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.List;
-
 /**
  * <p>
  * 
  * </p>
  *
  * @author 吴晗
- * @since 2023-05-10
+ * @since 2023-05-18
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
-@TableName("sys_role")
-public class Role extends BaseEntity {
+@EqualsAndHashCode
+@TableName("sys_role_menu")
+public class RoleMenu {
 
     private static final long serialVersionUID = 1L;
 
-    @TableField("name")
-    private String name;
+    @TableField("role_id")
+    private Long roleId;
 
-    @TableField("code")
-    private String code;
+    @TableField("menu_id")
+    private Long menuId;
 
-    /**
-     * 备注
-     */
-    @TableField("remark")
-    private String remark;
-    // 存储角色对应的菜单id
-    @TableField(exist = false)
-    private List<Long> menuIds;
+
 }
