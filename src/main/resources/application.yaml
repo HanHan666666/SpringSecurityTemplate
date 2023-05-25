@@ -6,9 +6,12 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://bt6s.onbed.cn:3366/neuedu?useUnicode=true&useSSL=true&characterEncoding=utf8
-    username: root
-    password: yourpassword
+#    url: jdbc:mysql://bt6s.onbed.cn:3366/neuedu?useUnicode=true&useSSL=true&characterEncoding=utf8
+#    username: root
+#    password: yourpassword
+    url: jdbc:mysql://rm-bp1f30y3doreehy83io.mysql.rds.aliyuncs.com:3306/databaselearn?useUnicode=true&useSSL=true&characterEncoding=utf8
+    username: test666
+    password: Test666@
   output:
     ansi:
       enabled: always
@@ -36,3 +39,9 @@ token:
     secret: YWFhYWFhYWFhYQ==
     expire: 604800
     header: token
+aliyun:
+  accessKeyId: LTAI5t9qVAsnDzhj8rz4WTdg
+  secretAccessKey: Km3eSA7Nm4Nc9o7bF7NIyWCrCgO6rA
+  oss:
+    endPoint: oss-cn-hangzhou.aliyuncs.com
+    bucketName: neuedutest

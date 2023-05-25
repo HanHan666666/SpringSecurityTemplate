@@ -71,8 +71,7 @@ public class MenuController extends BaseController {
     @PreAuthorize("hasAuthority('sys:menu:list')")
     @RequestMapping("/list")
     public Result list() {
-        List<Menu> tree = menuService.tree();
-        return Result.success(tree);
+        return Result.success(menuService.tree());
     }
     @GetMapping("/info/{id}")
     public Result info(@PathVariable("id") Long id) {

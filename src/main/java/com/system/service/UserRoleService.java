@@ -12,5 +12,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2023-05-10
  */
 public interface UserRoleService extends IService<UserRole> {
-
+    /**
+     *  保存用户角色
+     * */
+    void saveUserRole(Long userId, Long[] roleIds);
 }

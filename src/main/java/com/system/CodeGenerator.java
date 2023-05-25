@@ -53,11 +53,11 @@ public class CodeGenerator {
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://bt6s.onbed.cn:3366/neuedu?useUnicode=true&useSSL=true&characterEncoding=utf8");
+        dsc.setUrl("jdbc:mysql://rm-bp1f30y3doreehy83io.mysql.rds.aliyuncs.com:3306/databaselearn?useUnicode=true&useSSL=true&characterEncoding=utf8");
         // dsc.setSchemaName("public");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
-        dsc.setUsername("root");
-        dsc.setPassword("yourpassword");
+        dsc.setUsername("test666");
+        dsc.setPassword("Test666@");
         mpg.setDataSource(dsc);
 
         // 包配置
@@ -139,7 +139,7 @@ public class CodeGenerator {
         strategy.setSuperControllerClass("com.system.common.BaseController");
         // 写于父类中的公共字段
         strategy.setSuperEntityColumns("id", "created", "updated", "statu");
-        String[] tables = {"sys_role_menu"};
+        String[] tables = {"sys_arrangement"};
 //        strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));
         strategy.setInclude(tables);
         strategy.setEntityTableFieldAnnotationEnable(true); // 为实体类的类上加@TableName, 所有字段上加注解

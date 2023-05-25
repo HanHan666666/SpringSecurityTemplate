@@ -1,6 +1,7 @@
 package com.system;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.system.common.lang.Const;
 import com.system.entity.User;
 import com.system.mapper.UserMapper;
 import com.system.service.UserService;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 
@@ -17,7 +19,8 @@ class AdminSystemVueApplicationTests {
 
     @Autowired
     UserMapper userMapper;
-
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
 
     @Test
@@ -75,10 +78,20 @@ class AdminSystemVueApplicationTests {
 
     @Autowired
     UserService userService;
+
     @Test
-    public void permsTest(){
-        String x =  userService.getUserAuthorityInfo(1L);
+    public void permsTest() {
+        String x = userService.getUserAuthorityInfo(1L);
         System.out.println(x);
+    }
+
+    @Test
+    public void TestPassword() {
+        for (int i = 0; i < 10; i++) {
+            String encode_password = passwordEncoder.encode(Const.DEFAULT_PASSWORD);
+            System.out.println("encode_password = " + encode_password);
+        }
+
     }
 
 }
