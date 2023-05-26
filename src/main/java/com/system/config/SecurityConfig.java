@@ -57,6 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/index/captcha",
             "/favicon.ico",
             "/film/**",
+            "/arrangement/**",
     };
 
     @Override
