@@ -1,7 +1,11 @@
 package com.system.common;
 
 import lombok.Data;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.ServletRequestUtils;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletResponseWrapper;
 
 
 @Data
@@ -22,6 +26,7 @@ public class Result {
     }
 
     public static Result fail(int code, String message, Object data){
+
         Result r = new Result();
         r.setCode(code);
         r.setMessage(message);

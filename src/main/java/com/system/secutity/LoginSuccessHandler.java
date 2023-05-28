@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
 
 @Component
 public class LoginSuccessHandler implements AuthenticationSuccessHandler {
@@ -33,10 +34,10 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         String token = jwtUtil.createToken(username);
         response.setHeader(jwtUtil.getHeader(),token);
         User user = userService.getUserByUsername(username);
+        user.setLastLogin(LocalDateTime.now());
         Result result = Result.success(user);
+        userService.updateById(user);
         out.write(JSONUtil.toJsonStr(result).getBytes(StandardCharsets.UTF_8));
-//        JSON json = JSON.parse(result.toString());
-//        ;
         out.flush();
         out.close();
     }

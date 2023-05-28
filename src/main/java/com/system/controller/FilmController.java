@@ -1,42 +1,42 @@
 package com.system.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.system.common.Result;
+import com.system.entity.Film;
 import com.system.service.CategoryService;
 import com.system.service.FilmService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
 import com.system.common.BaseController;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author 吴晗
  * @since 2023-05-24
  */
 @RestController
-@RequestMapping("/film")
+@RequestMapping("/system/film")
 public class FilmController extends BaseController {
-   final
-   FilmService filmService;
+    final
+    FilmService filmService;
 
-   final
-   CategoryService categoryService;
+    final
+    CategoryService categoryService;
 
     public FilmController(FilmService filmService, CategoryService categoryService) {
         this.filmService = filmService;
         this.categoryService = categoryService;
     }
 
-    @GetMapping("/list")
-    public Result list() {
-        return Result.success(filmService.list());
+    @GetMapping("/list") // param: current, size
+    public Result list(@RequestParam(defaultValue = "1") Integer current,
+                       @RequestParam(defaultValue = "10") Integer size) {
+        return Result.success(filmService.getFilmList(current, size));
     }
 
     // getfilm by id

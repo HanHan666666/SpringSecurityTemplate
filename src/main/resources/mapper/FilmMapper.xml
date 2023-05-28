@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.system.mapper.FilmMapper">
+    <select id="getFilmList" resultType="com.system.entity.Film">
+        SELECT sf.`name` AS `name`,
+               sf.id,
+               release_time,
+               category_id,
+               region,
+               cover,
+               duration,
+               grade,
+               sf.created,
+               sf.updated,
+               sf.statu,
+               sc.`name` AS `genre`
+        FROM sys_film sf
+                 JOIN sys_category sc ON sf.category_id = sc.id
 
+    </select>
 </mapper>

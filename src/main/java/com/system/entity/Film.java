@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import java.time.LocalDate;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.system.common.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
@@ -31,6 +33,8 @@ public class Film extends BaseEntity {
     @TableField("release_time")
     private LocalDate releaseTime;
 
+    //序列化json时候排除
+    @JsonIgnore
     @TableField("category_id")
     private Long categoryId;
 
@@ -46,5 +50,8 @@ public class Film extends BaseEntity {
     @TableField("grade")
     private BigDecimal grade;
 
-
+    //使用mybatis提供的方法查询的时候排除
+    @TableField(exist = false, value = "genre")
+    @JsonProperty("genre")
+    private String genre;
 }

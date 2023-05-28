@@ -43,6 +43,6 @@ public class BaseController {
     public Page getPage() {
         long current = ServletRequestUtils.getIntParameter(request, "current", 1);
         long size = ServletRequestUtils.getIntParameter(request, "size", 10);
-        return new Page(current, size);
+        return new Page<>(current, size);
     }
 }
