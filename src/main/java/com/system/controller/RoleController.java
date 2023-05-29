@@ -102,10 +102,10 @@ public class RoleController extends BaseController {
 
     @Transactional
     @PreAuthorize("hasAuthority('sys:role:delete')")
-    @DeleteMapping("/delete")
+    @PostMapping("/delete")
     public Result delete(@RequestBody Long[] ids) {
-        roleMenuService.remove(new QueryWrapper<RoleMenu>().in("role_id", (Object) ids));
-        userRoleService.remove(new QueryWrapper<UserRole>().in("role_id", (Object) ids));
+        roleMenuService.remove(new QueryWrapper<RoleMenu>().in("role_id", ids));
+        userRoleService.remove(new QueryWrapper<UserRole>().in("role_id", ids));
         // roleService.removeByIds(ids);
         roleService.removeByIds(Arrays.asList(ids));
         return Result.success("删除成功");

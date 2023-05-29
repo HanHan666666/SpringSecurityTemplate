@@ -17,6 +17,7 @@ import com.system.service.UserRoleService;
 import com.system.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.trace.http.HttpTrace;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,6 +28,7 @@ import com.system.common.BaseController;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.security.Principal;
 
 /**
  * <p>
@@ -47,6 +49,7 @@ public class UserController extends BaseController {
     UserRoleService userRoleService;
     final
     PasswordEncoder passwordEncoder;
+
     public UserController(RoleMenuService roleMenuService, UserRoleService userRoleService, PasswordEncoder passwordEncoder) {
         this.roleMenuService = roleMenuService;
         this.userRoleService = userRoleService;
@@ -74,12 +77,12 @@ public class UserController extends BaseController {
 
     }
 
-    //参数传递使用RestFul。
+    // 参数传递使用RestFul。
     @GetMapping("/info/{username}")
     public Result getUserByUsername(@PathVariable("username") String
                                             username) {
         User user = userService.getUserByUsername(username);
-        //springboot自动将Java对象转换为JSON对象
+        // springboot自动将Java对象转换为JSON对象
         if (user != null) {
             return Result.success(user);
         } else {
@@ -90,9 +93,9 @@ public class UserController extends BaseController {
     @GetMapping("/userinfo/{id}")
     public Result getUserById(@PathVariable("id") Integer id) {
         User user = userService.getById(id);
-         List<Role> roles = roleService.listRolesByUserId(user.getId());
+        List<Role> roles = roleService.listRolesByUserId(user.getId());
         user.setRoles(roles);
-        //springboot自动将Java对象转换为JSON对象
+        // springboot自动将Java对象转换为JSON对象
         if (user != null) {
             return Result.success(user);
         } else {
@@ -100,34 +103,35 @@ public class UserController extends BaseController {
         }
     }
 
-    //list
+    // list
     @PreAuthorize("hasAuthority('sys:user:list')")
     @GetMapping("/list")
-    public Result list(String username){
+    public Result list(String username) {
         Page<User> users = userService.page(getPage(), new QueryWrapper<User>()
                 .like(StrUtil.isNotBlank(username),
-                        "username",username));
-        users.getRecords().forEach(u->{
+                        "username", username));
+        users.getRecords().forEach(u -> {
             List<Role> roles = roleService.listRolesByUserId(u.getId());
             u.setRoles(roles);
         });
         return Result.success(users);
     }
-    //批量delete
+
+    // 批量delete
     @PreAuthorize("hasAuthority('sys:user:delete')")
     @PostMapping("/delete")
-    public Result delete(@RequestBody Long[] ids){
-        roleMenuService.remove(new QueryWrapper<RoleMenu>().in("role_id",ids));
-        userRoleService.remove(new QueryWrapper<UserRole>().in("user_id",ids));
+    public Result delete(@RequestBody Long[] ids) {
+        roleMenuService.remove(new QueryWrapper<RoleMenu>().in("role_id", ids));
+        userRoleService.remove(new QueryWrapper<UserRole>().in("user_id", ids));
         userService.removeByIds(Arrays.asList(ids));
         return Result.success("删除成功");
     }
 
-    //update
+    // update
     @PreAuthorize("hasAuthority('sys:user:update')")
     @PostMapping("/update")
-    public Result update(@RequestBody User user){
-    user.setUpdated(LocalDateTime.now());
+    public Result update(@RequestBody User user) {
+        user.setUpdated(LocalDateTime.now());
         userService.updateById(user);
         return Result.success("更新成功");
     }
@@ -135,20 +139,27 @@ public class UserController extends BaseController {
     // save
     @PreAuthorize("hasAuthority('sys:user:save')")
     @PostMapping("/save")
-    public Result save(@RequestBody User user){
+    public Result save(@RequestBody User user) {
         user.setCreated(LocalDateTime.now());
         // user.setUpdated(LocalDateTime.now());
         String encode_password = passwordEncoder.encode(Const.DEFAULT_PASSWORD);
         user.setPassword(encode_password);
-        user.setAvatar(Const.DEFAULT_AVATAR);
-        userService.save(user);
+        if (StrUtil.isBlankOrUndefined(user.getAvatar()))
+            user.setAvatar(Const.DEFAULT_AVATAR);
+        // 检查用户是否已经存在
+        try {
+            userService.save(user);
+        } catch (DuplicateKeyException e) {
+            return Result.fail("用户名已存在");
+        }
+
         return Result.success("保存成功");
     }
 
-    //resetPassword
+    // resetPassword
     @PreAuthorize("hasAuthority('sys:user:repass')")
     @PostMapping("/resetPassword")
-    public Result resetPassword(@RequestBody Long id){
+    public Result resetPassword(@RequestBody Long id) {
         User user = userService.getById(id);
         String encode_password = passwordEncoder.encode(Const.DEFAULT_PASSWORD);
         user.setPassword(encode_password);
@@ -157,16 +168,24 @@ public class UserController extends BaseController {
     }
 
     @PostMapping("/setRole")
-    public Result setRole(@RequestBody UserRole userRole){
+    public Result setRole(@RequestBody UserRole userRole) {
         userRoleService.saveOrUpdate(userRole);
         return Result.success("设置成功");
     }
+
     @PostMapping("/saveUserRole/{id}")
-    public Result saveUserRole(@RequestBody Long[] roleIds,@PathVariable("id") Long userId){
-        userRoleService.saveUserRole(userId,roleIds);
+    public Result saveUserRole(@RequestBody Long[] roleIds, @PathVariable("id") Long userId) {
+        userRoleService.saveUserRole(userId, roleIds);
         return Result.success("设置成功");
     }
+
+    @GetMapping("/myinfo")
+    public Result myinfo(Principal principal) {
+        User user = userService.getUserByUsername(principal.getName());
+        user.setRoles(roleService.listRolesByUserId(user.getId()));
+        return Result.success(user);
+    }
 }
-//注意：因为定义结果封装类，之后项目中所有Controller中接口方法，返回都是统一
-//类型 Result类型。
+// 注意：因为定义结果封装类，之后项目中所有Controller中接口方法，返回都是统一
+// 类型 Result类型。
 

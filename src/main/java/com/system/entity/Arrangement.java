@@ -3,8 +3,12 @@ package com.system.entity;
 import java.math.BigDecimal;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
+
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
+
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.system.common.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -53,5 +57,11 @@ public class Arrangement extends BaseEntity {
     @TableField("end_time")
     private LocalTime endTime;
 
+    @TableField(exist = false)
+    private List<LocalTime> startAndEnd;
 
+    public void setStartAndEnd(LocalTime startTime, LocalTime endTime) {
+        this.startAndEnd.add(startTime);
+        this.startAndEnd.add(endTime);
+    }
 }

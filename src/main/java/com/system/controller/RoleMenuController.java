@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author 吴晗
@@ -27,6 +27,7 @@ import java.util.List;
 public class RoleMenuController extends BaseController {
     @Autowired
     RoleMenuService roleMenuService;
+
     @PatchMapping("/update/{RoleId}")
     public Result update(@PathVariable Long RoleId, @RequestBody List<Long> menuIds) {
         roleMenuService.remove(new QueryWrapper<RoleMenu>().eq("role_id", RoleId));
@@ -39,5 +40,6 @@ public class RoleMenuController extends BaseController {
         });
         roleMenuService.saveBatch(roleMenus);
         return Result.success("保存成功");
+
     }
 }

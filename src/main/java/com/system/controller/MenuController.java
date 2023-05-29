@@ -89,18 +89,17 @@ public class MenuController extends BaseController {
 
     @PreAuthorize("hasAuthority('sys:menu:list')")
     @PostMapping("/save")
-    public Result save() {
-        Menu menu = new Menu();
+    public Result save(@RequestBody Menu menu) {
+        // Menu menu = new Menu();
         menu.setCreated(LocalDateTime.now());
-        menu.setUpdated(LocalDateTime.now());
         menuService.save(menu);
-        return Result.success("save");
+        return Result.success("保存成功");
     }
 
     // delete
     //sys:menu:delete 自定义 menu:delete
     @PreAuthorize("hasAuthority('sys:menu:delete')")
-    @PostMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public Result del(@PathVariable("id") Long id) {
         //查询要删除这个id菜单下所有的子菜单数量
         int count = menuService.count(new QueryWrapper<Menu>
