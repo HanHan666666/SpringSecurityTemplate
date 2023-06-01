@@ -6,10 +6,8 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://bt6s.onbed.cn:3366/neuedu?useUnicode=true&useSSL=true&characterEncoding=utf8
-#    username: root
-#    password: yourpassword
-    url: jdbc:mysql://rm-bp1f30y3doreehy83io.mysql.rds.aliyuncs.com:3306/databaselearn?useUnicode=true&useSSL=true&characterEncoding=utf8
+
+    url: jdbc:mysql://127.0.0.1:3306/databaselearn?useUnicode=true&useSSL=true&characterEncoding=utf8
     username: test666
     password: Test666@
   output:
@@ -21,7 +19,7 @@ spring:
       password: 123
   redis:
     port: 3379
-    host: 120.48.8.219
+    host: 127.0.0.1
     password: '000415'
     database: 1
   main:
@@ -40,8 +38,8 @@ token:
     expire: 604800
     header: token
 aliyun:
-  accessKeyId: LTAI5t9qVAsnDzhj8rz4WTdg
-  secretAccessKey: Km3eSA7Nm4Nc9o7bF7NIyWCrCgO6rA
+  accessKeyId: LTAI5t9qVAsnDzxxxxxx
+  secretAccessKey: Km3eSA7Nm4Nc9xxxxxxxxxxx
   oss:
     endPoint: oss-cn-hangzhou.aliyuncs.com
-    bucketName: neuedutest
+    bucketName: xxxxxxxxx
