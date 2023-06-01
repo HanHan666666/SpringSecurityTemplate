@@ -53,6 +53,7 @@ public class ArrangementController extends BaseController {
     @PostMapping("/add")
     public Result add(@RequestBody com.system.entity.Arrangement arrangement) {
         arrangement.setCreated(LocalDateTime.now());
+        arrangement.setUpdated(LocalDateTime.now());
         arrangement.setStartTime(arrangement.getStartAndEnd().get(0));
         arrangement.setEndTime(arrangement.getStartAndEnd().get(1));
         arrangementService.save(arrangement)    ;
@@ -64,6 +65,7 @@ public class ArrangementController extends BaseController {
     public Result info(@PathVariable Long id) {
         Arrangement arrangement = arrangementService.getById(id);
         arrangement.setStartAndEnd(arrangement.getStartTime(),arrangement.getEndTime());
+        System.out.println(arrangement);
         return Result.success(arrangement);
     }
 

@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -61,6 +62,7 @@ public class Arrangement extends BaseEntity {
     private List<LocalTime> startAndEnd;
 
     public void setStartAndEnd(LocalTime startTime, LocalTime endTime) {
+        this.startAndEnd = new ArrayList<>();
         this.startAndEnd.add(startTime);
         this.startAndEnd.add(endTime);
     }
